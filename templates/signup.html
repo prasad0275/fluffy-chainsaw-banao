@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+    <title>Id</title>
+</head>
+
+<body>
+    <!-- Select Type -->
+    {% if dest == None %}
+    <div class="container flex section">
+        <div class="main flex-col">
+            <div class="title">
+                <h1>Join as a doctor or patient</h1>
+            </div>
+            <form action="" method="post" >
+            <div class="options flex">
+                {% csrf_token %}
+                <div class="doctor options-border" id="doctor">
+                    <div class="doctor-icon">
+                        <img src="{% static 'images/doctor.jpg' %}" alt="doctor" height="50" width="50">
+                        <input type="radio" name="type" id="rad-doctor" value="doctor">
+                    </div>
+                    <div class="sub-title">
+                        <p>For Doctor</p>
+                    </div>
+                </div>
+                <div class="patient options-border" id="patient">
+                    <div class="patient-icon">
+                        <img src="{% static 'images/patient.jpg' %}" alt="patient" height="50" width="50">
+                        <input type="radio" name="type" id="rad-patient" value="patient">
+                    </div>
+                    <div class="sub-title">
+                        <p>For Patient</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="submit flex">
+                <input type="submit" value="Apply" id="apply">
+            </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+
+    <!-- Form -->
+    {% if dest == 'form' %}
+    <div class="container">
+
+        <div class="contact-form flex-col">
+            <div class="form-title flex">
+                <h1>Sign Up</h1>
+            </div>
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-input flex-col">
+                    <p>Identity</p>
+                    <div class=" flex">
+                        <input type="text" name="first_name" id="" placeholder="First Name">
+                        <input type="text" name="last_name" id="" placeholder="Last Name">
+                    </div>
+                    <div class="flex">
+                        <input type="file" name="profile_picture" id="" placeholder="">
+                    </div>
+                    <hr>
+                    <p>Credential</p>
+                    <div class="flex">
+                        <input type="text" name="username" id="" placeholder="Username">
+                        <input type="email" name="email" id="" placeholder="Email">
+                    </div>
+                    <div class="flex">
+                        <input type="password" name="password" id="" placeholder="Password">
+                        <input type="password" name="con_password" id="" placeholder="Confirm Password">
+                    </div>
+                    <hr>
+                    <p>Address</p>
+                    <div class="flex">
+                        <input type="text" name="house_details" id="" placeholder="House details">
+                        <input type="text" name="street" id="" placeholder="Street">
+                    </div>
+                    <div class="flex">
+                        <input type="text" name="city" id="" placeholder="City">
+                        <input type="text" name="state" id="" placeholder="State">
+                    </div>
+                    <div class="flex">
+                        <input type="number" name="pincode" id="" placeholder="Pincode">
+                    </div>
+
+                    <div class="flex">
+                        <input type="submit" value="Submit" class="btn">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    {% endif %}
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+    <title>Id</title>
+</head>
+
+<body>
+    <div class="container flex section">
+        <div class="main flex-col">
+
+            <div class="title">
+                <h1>Join as a doctor or patient</h1>
+            </div>
+            <form action="/signup?dest=home" method="post" class="form"></form>
+            <div class="options flex">
+                {% csrf_token %}
+                <div class="doctor options-border" id="doctor">
+                    <div class="doctor-icon">
+                        <img src="{% static 'images/doctor.jpg' %}" alt="doctor" height="50" width="50">
+                        <input type="radio" name="type" id="rad-doctor" value="doctor">
+                    </div>
+                    <div class="sub-title">
+                        <p>For Doctor</p>
+                    </div>
+                </div>
+                <div class="patient options-border" id="patient">
+                    <div class="patient-icon">
+                        <img src="{% static 'images/patient.jpg' %}" alt="patient" height="50" width="50">
+                        <input type="radio" name="type" id="rad-patient" value="patient">
+                    </div>
+                    <div class="sub-title">
+                        <p>For Patient</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="submit">
+                <input type="submit" value="Apply" id="apply">
+            </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

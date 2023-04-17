@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'app',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'banao_assignment.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,7 +69,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'banao_assignment.wsgi.application'
-
+STATICFILES_DIRS = [
+    BASE_DIR, "static"
+]
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

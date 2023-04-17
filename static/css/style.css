@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-color: ;
+    --secondary-color: ;
+    --success-color: #479f76;
+    --success-color-dark: #146c43;
+    ;
+    --primary-font: Arial, Helvetica, sans-serif;
+    --secondary-font: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+
+}
+
+h1 {
+    font-size: 3rem;
+    font-family: var(--primary-font);
+    font-family: Arial, Helvetica, sans-serif
+}
+
+h2 {
+    font-size: 2rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    font-size: 1.2rem;
+    font-family: sans-serif;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1180px;
+    margin-inline: auto;
+    /* background-color: orange; */
+    padding: 10px 20px;
+    align-items: center;
+}
+
+.section {
+    height: 600px;
+}
+
+.main {
+    justify-content: center;
+    align-items: center;
+    border: solid gray 0.5px;
+    border-radius: 10px;
+    padding: 25px 35px;
+}
+
+.options {
+    gap: 50px;
+    margin: 30px 0px;
+}
+
+.options-border {
+    padding: 10px 20px;
+    border: solid black 0.5px;
+    border-radius: 10px;
+
+}
+
+/* Contact Form */
+input[type=submit] {
+    padding: 10px 30px;
+    background-color: var(--success-color);
+    border: solid black 0.5px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-family: var(--secondary-font);
+    font-weight: 500;
+    color: white;
+}
+
+input[type=submit]:hover {
+    transition: 0.5s;
+    background-color: var(--success-color-dark);
+}
+
+input[type=file] {
+    width: 100%;
+}
+
+input,
+textarea {
+    border: solid 0.5px black;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-family: sans-serif;
+
+}
+
+.contact-form {
+    max-width: 508px;
+    margin-inline: auto;
+    /* background-color: orange; */
+    padding: 10px 20px;
+    align-items: center;
+    gap: 10;
+}
+
+.form-title {
+    margin: 20px 0;
+}
+
+.form-input {
+    gap: 20px;
+}
+
+.form-input input,
+textarea {
+    margin: 0px 20px;
+}

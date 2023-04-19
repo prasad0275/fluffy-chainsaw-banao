@@ -1,47 +1,36 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password,check_password
 from django.contrib import messages,auth
+from .models import Profile_Type,Profile,Address
+from django.contrib.auth.models import User
+
 # Create your views here.
 
 @login_required(login_url='/login')
 def index(request):
-    return render(request,"index.html")
+    user_model = User.objects.get(username=request.user)
+    profile_model = Profile.objects.get(user=user_model)
+    address_model = Address.objects.get(user=user_model)
+    print(request.user)
+    print(user_model.first_name)
+    print(profile_model.profile_picture.path)
+    return render(request,"index.html",{'user_model':user_model,'profile_model':profile_model,'address_model':address_model})
 
 def signup(request):
     dest = {}
-    type = None
-    first_name = None
-    last_name = None
-    profile_picture = None
-    username = None
-    email = None
-    password = None
-    con_passowod = None
-    house_details = None
-    street = None
-    city = None
-    state = None
-    pincode = None
-
-    print(request.path)
-
     if request.method == 'GET':
         dest = request.GET.get('dest')
-        print(dest)
-        print(request.path)
-    
     if request.GET.get("dest") == None:
         if request.method == 'POST':
-            type = request.POST.get('type')
-            # print(type)
-            return redirect('/signup?dest=form')
+            user_type = request.POST.get('utype')
+            return redirect('/signup?dest=form&type='+user_type)
     
-    if request.GET.get("dest") == 'form':
-        print("into form")
+    if request.GET.get("dest") == 'form' :
         if request.method == 'POST':
             first_name = request.POST.get('first_name')
             last_name = request.POST.get('last_name')
-            profile_picture = request.POST.get('profile_picture')
+            profile_picture = request.FILES.get('profile_picture')
             username = request.POST.get('username')
             email = request.POST.get('email')
             password = request.POST.get('password')
@@ -51,20 +40,79 @@ def signup(request):
             city = request.POST.get('city')
             state = request.POST.get('state')
             pincode = request.POST.get('pincode')
+            type = request.GET.get('type')
+            # print(request.data)
+
             if password != con_passowod:
-                messages.info(request,"Pass Mismatch!")
+                messages.info(request,"Password Mismatch!")
+                return redirect('/signup?dest=form&type='+type)
             
-            print("form details")
+            elif(User.objects.filter(email = email).exists()):
+                messages.info(request,'Email is already exists!')
+                return redirect('signup')
         
-    return render(request,"signup.html",{'dest':dest,})
+            elif(User.objects.filter(username = username).exists()):
+                messages.info(request,'Username is already taken!')
+                return redirect('signup')
+            else:
+                user = User.objects.create_user(
+                    username=username,
+                    password=password,
+                    first_name=first_name,
+                    last_name=last_name,
+                    email=email
+                )
+                user.save()
 
-def signup_home(request):
-    if request.method == 'POST':
-        print('home post')
-        return redirect('/signup')
+                profile = Profile.objects.create(
+                    user=user,
+                    user_type=Profile_Type.objects.get(type=type),
+                    profile_picture = profile_picture
+                )
+                profile.save()
 
-def signup_form(request):
-    if request.method == 'POST':
-        print('form post')
+                address = Address.objects.create(
+                    user = user, 
+                    house_details = house_details,
+                    street=street,
+                    city=city,
+                    state=state,
+                    pincode=pincode
+                )
+                address.save()
+                messages.info(request,"Register Successfully!")
+                return redirect('/login')
+        
+    return render(request,"signup.html",{'dest':dest})
+
+def logout(request):
+    if request.method == 'GET':
+        auth.logout(request)
+        print("logout")
+        return redirect('/')
+    return render(request,"signup.html")
+
+
 def login(request):
-    return render(request,"")
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        print(username," ",password)
+        # user_model = User.objects.get(username=username)
+        user = auth.authenticate(username=username,password=password)
+        print(user)
+        if user is not None:
+            auth.login(request,user)
+            user_model = User.objects.get(username=username)
+            profile_model = Profile.objects.get(user=user_model)
+            address_model = Address.objects.get(user=user_model)
+            print("login successfully")
+            print(user_model.first_name)
+            print(profile_model.profile_picture)
+            # messages.info(request,"Login successfully")
+            return redirect('/',{'user_profile':user_model,'profile_model':profile_model,'address_model':address_model})
+        else:
+            messages.info(request,'Invalid Credentials')
+            print("not login")
+            return redirect('/login')
+    return render(request,"login.html")

@@ -17,15 +17,21 @@
     <div class="container flex section">
         <div class="main flex-col">
             <div class="title">
-                <h1>Join as a doctor or patient</h1>
+                
             </div>
-            <form action="" method="post" >
+            <div class="message flex">
+                <h1>Join as a doctor or patient</h1>
+                {% for message in messages %}
+                <p>{{message}}</p>
+                {% endfor %}
+            </div>
+            <form action="" method="post">
             <div class="options flex">
                 {% csrf_token %}
                 <div class="doctor options-border" id="doctor">
                     <div class="doctor-icon">
                         <img src="{% static 'images/doctor.jpg' %}" alt="doctor" height="50" width="50">
-                        <input type="radio" name="type" id="rad-doctor" value="doctor">
+                        <input type="radio" name="utype" id="rad-doctor" value="doctor">
                     </div>
                     <div class="sub-title">
                         <p>For Doctor</p>
@@ -34,7 +40,7 @@
                 <div class="patient options-border" id="patient">
                     <div class="patient-icon">
                         <img src="{% static 'images/patient.jpg' %}" alt="patient" height="50" width="50">
-                        <input type="radio" name="type" id="rad-patient" value="patient">
+                        <input type="radio" name="utype" id="rad-patient" value="patient">
                     </div>
                     <div class="sub-title">
                         <p>For Patient</p>
@@ -45,6 +51,10 @@
             <div class="submit flex">
                 <input type="submit" value="Apply" id="apply">
             </div>
+            <div class="flex">
+                <a href="/login" style="text-decoration: none; color:black;"><p>Login</p></a>
+            </div>
+            
             </form>
         </div>
     </div>
@@ -60,9 +70,9 @@
                 <h1>Sign Up</h1>
             </div>
             {% for message in messages %}
-            <p>{{message}}</p>
+            <p style="color:red;">{{message}}</p>
             {% endfor %}
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-input flex-col">
                     <p>Identity</p>
@@ -71,7 +81,7 @@
                         <input type="text" name="last_name" id="" placeholder="Last Name">
                     </div>
                     <div class="flex">
-                        <input type="file" name="profile_picture" id="" placeholder="">
+                        <input type="file" name="profile_picture" id="">
                     </div>
                     <hr>
                     <p>Credential</p>
@@ -80,8 +90,8 @@
                         <input type="email" name="email" id="" placeholder="Email">
                     </div>
                     <div class="flex">
-                        <input type="password" name="password" id="" placeholder="Password">
-                        <input type="password" name="con_password" id="" placeholder="Confirm Password">
+                        <input type="password" name="password" minlength="8" id="" placeholder="Password">
+                        <input type="password" name="con_password" minlength="8" id="" placeholder="Confirm Password">
                     </div>
                     <hr>
                     <p>Address</p>
@@ -100,6 +110,10 @@
                     <div class="flex">
                         <input type="submit" value="Submit" class="btn">
                     </div>
+                    <div class="flex">
+                        <a href="/login" style="text-decoration: none; color:black;"><p>Login</p></a>
+                    </div>
+                    
                 </div>
             </form>
 

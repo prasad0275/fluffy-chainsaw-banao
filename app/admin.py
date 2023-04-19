@@ -7,7 +7,7 @@ class Profile_TypeAdmin(admin.ModelAdmin):
 
 @admin.register(Profile)
 class Profile(admin.ModelAdmin):
-    list_display = ['id','username','password','user_type','first_name','last_name','profile_picture','email']
+    list_display = ['id','user','user_type','profile_picture']
 
 @admin.register(Address)
 class Address(admin.ModelAdmin):

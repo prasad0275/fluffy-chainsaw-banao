@@ -1,12 +1,46 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
     <title>login</title>
 </head>
+
 <body>
-    <h1>Login</h1>
+    <div class="container flex section">
+        <div class="main flex-col">
+
+            <div class="title">
+                <h1>Login</h1>
+            </div>
+            {% for message in messages %}
+            <p style="color:red;">{{message}}</p>
+            {% endfor %}
+            <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-input flex-col">
+                <div class="flex-col" style="gap:20px; margin:20px">
+                    <input type="text" name="username" id="" placeholder="Username">
+                    <input type="password" name="password" minlength="8" id="" placeholder="Password">
+                </div>
+
+
+                <div class="flex">
+                    <input type="submit" value="Login" class="btn">
+                </div>
+                <div class="flex">
+                    <a href="/signup" style="text-decoration: none; color:black;"><p>Signup</p></a>
+                </div>
+                
+            </div>
+            </form>
+        </div>
+    </div>
 </body>
+
 </html>

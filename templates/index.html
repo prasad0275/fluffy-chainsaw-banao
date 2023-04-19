@@ -16,35 +16,35 @@
         <div class="main flex-col">
 
             <div class="title">
-                <h1>Join as a doctor or patient</h1>
+                <h1>Profile</h1>
             </div>
-            <form action="/signup?dest=home" method="post" class="form"></form>
-            <div class="options flex">
-                {% csrf_token %}
-                <div class="doctor options-border" id="doctor">
-                    <div class="doctor-icon">
-                        <img src="{% static 'images/doctor.jpg' %}" alt="doctor" height="50" width="50">
-                        <input type="radio" name="type" id="rad-doctor" value="doctor">
-                    </div>
-                    <div class="sub-title">
-                        <p>For Doctor</p>
-                    </div>
+            <div class="container flex">
+                <div class="profile_picture" style="width:50%">
+                    <img src="{{profile_model.profile_picture.url}}" alt="" height="200px" width="200px">
                 </div>
-                <div class="patient options-border" id="patient">
-                    <div class="patient-icon">
-                        <img src="{% static 'images/patient.jpg' %}" alt="patient" height="50" width="50">
-                        <input type="radio" name="type" id="rad-patient" value="patient">
+                <div class="details flex-col" style="margin:20px 20px; gap:10px; width: 50%;">
+                    <div class="type">
+                        <h2>{{profile_model.user_type| upper}}</h2>
                     </div>
-                    <div class="sub-title">
-                        <p>For Patient</p>
+                    <div class="title-name">
+                        <p><b>Name :</b><br> {{user_model.first_name}} {{user_model.last_name}}</p>
+                    </div>
+                    <div class="email">
+                        <p><b>Email :</b><br> {{user_model.email}}</p>
+                    </div>
+                    <div class="address">
+                        <p><b>Address :</b><br> {{address_model.house_details}},<br>{{address_model.street}} <br> {{address_model.city}}, {{address_model.state}},<br> {{address_model.pincode}}</p>
+                    </div>
 
-                    </div>
                 </div>
+                
             </div>
-            <div class="submit">
-                <input type="submit" value="Apply" id="apply">
-            </div>
-            </form>
+            <div class="flex">
+                    <form action="logout" method="get">
+                        <input type="submit" value="Logout" style="background-color: red;">
+                    </form>
+                </div>
+
         </div>
     </div>
 </body>
